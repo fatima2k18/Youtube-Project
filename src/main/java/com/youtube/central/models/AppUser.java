@@ -25,6 +25,8 @@ public class AppUser {
     String email;
     @Column(unique = true)
 
+
+
     Long phoneNumber;
     LocalDate dob;
     String gender;
