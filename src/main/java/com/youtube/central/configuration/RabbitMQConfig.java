@@ -10,7 +10,7 @@ import java.util.Queue;
 public class RabbitMQConfig {
     private static final String queueName="notification-queue";
     private static final String exchangeName="notification-exchange";
-    private static final String routingkey="notification123";
+    private static final String routingkey="notification-123";
     @Bean
     public AMQP.Queue queue(){
         return new  AMQP.Queue();
