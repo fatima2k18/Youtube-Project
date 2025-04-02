@@ -20,6 +20,22 @@ public class UserService {
         this.rabbitMqService=rabbitMqService;
 
 }
+    public AppUserRepo getAppUserRepo() {
+        return appUserRepo;
+    }
+
+    public void setAppUserRepo(AppUserRepo appUserRepo) {
+        this.appUserRepo = appUserRepo;
+    }
+
+    public RabbitMqService getRabbitMqService() {
+        return rabbitMqService;
+    }
+
+    public void setRabbitMqService(RabbitMqService rabbitMqService) {
+        this.rabbitMqService = rabbitMqService;
+    }
+
     public void registerUser(AppUser user) {
         //call repository layer to save the user
         user.setCreatedAt(LocalDateTime.now());
@@ -27,6 +43,12 @@ public class UserService {
         appUserRepo.save(user);
 
         //Insert registration message payload inside rabbit mq queue
+        NotificationMessage message=new NotificationMessage();
+        message.setEmail(user.getEmail());
+        message.setType("user-registration");
+        message.setName(user.getName());
+
+        rabbitMqService.insertMessageToQueue(message);
 
 
 
